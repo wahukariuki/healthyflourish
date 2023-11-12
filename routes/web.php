@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::middleware(['2fa'])->group(function () {
    
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -26,10 +30,5 @@ Route::middleware(['2fa'])->group(function () {
     })->name('2fa');
 });
   
-Route::get('/complete-registration', [RegisterController::class, 'completeRegistration'])->name('complete.registration');
+Route::get('/complete-registration', [App\Http\Controllers\Auth\RegisterController::class, 'completeRegistration'])->name('complete.registration');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
